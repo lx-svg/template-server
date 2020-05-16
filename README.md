@@ -1,7 +1,7 @@
 
 ## README
 
-1.  **npm install -S 下载模块**
+1.  **npm i 下载模块**
 2.  **在http-action目录中找到对应的请求回调，写入逻辑代码**
 3.  **在config.js中修改配置**
 4.  **命令行中执行 npm run start 启动服务**
