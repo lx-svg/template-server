@@ -1,7 +1,7 @@
 {
   "name": "template",
-  "version": "1.0.0",
-  "description": "`port` 服务器端口号",
+  "version": "1.1.0",
+  "description": "服务器端快速模板",
   "main": "ajax-template.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1"
   }
 }

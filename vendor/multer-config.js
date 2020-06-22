@@ -1,18 +1,18 @@
 const multer = require('multer')
-const {fileName,destination,limit} = require('../config.js').fileUploadConfig
+const {fileName,destination,limit,useMemory} = require('../config.js').fileUploadConfig
 const upload = multer({
-    storage: multer.diskStorage({
+    storage: useMemory ? multer.memoryStorage() :multer.diskStorage({
         // 相对路径
         destination: destination,
         // 文件名称
         filename: function (req, file, cb) {
-            console.log('Debug storage: 存储 ');
-            cb(null, fileName.replace('FIELDNAME',file.fieldname))
+            // 存储
+            cb(null, fileName.replace('FIELD_NAME',file.fieldname).replace("ORIGINAL_FILE_NAME",file.originalname))
         },
     }),
     // 文件过滤器
     fileFilter(req, file, cb) {
-        console.log('Debug filter: 过滤 ');
+        // 过滤
         cb(null, true); // 允许通过
     },
     // 限制

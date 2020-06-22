@@ -1,5 +1,3 @@
-module.exports={
-    PUT(app) {
+module.exports=function(put){
 
-    }
 }

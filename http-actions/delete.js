@@ -1,5 +1,3 @@
-module.exports={
-    DELETE(app) {
+module.exports=function(del){
 
-    }
 }
