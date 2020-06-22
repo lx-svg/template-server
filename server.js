@@ -25,5 +25,14 @@ PUT(app)
 app.all('*',(req,res)=>{
     res.redirect(notFoundRedirect)
 })
+app.use((err,req,res,next)=>{
+    if (err instanceof URIError) {
+        // URI 错误
+        res.redirect(notFoundRedirect)
+    }else{
+        // 其它错误处理
+        res.redirect(notFoundRedirect)
+    }
+})
 /* Listening Port */
 app.listen(port,()=>console.log(`server start at ${port} port`))

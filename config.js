@@ -4,12 +4,16 @@ module.exports = {
     index:'index.html',
     notFoundRedirect:"/",
     fileUploadConfig:{
-        destination:'./uploads',
+        // 上传文件存储目录
+        destination: './uploads',
+        // 文件名称
         fileName: `FIELDNAME-${Date.now()}.txt`,
+        // 文件限制
         limit:{
             fieldNameSize: 50, // B
             fieldSize: 1024, //B
             fields: 100,
+
             fileSize: 1024, // B
             files: 10
         }
