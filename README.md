@@ -128,10 +128,8 @@ module.exports=function (get) {
     - 保存多个file的数组
 ```
 // http-actions/post.js
-// 引入文件处理
+// 引入multer
 const upload = require('../vendor/multer-config.js')
-// 引入数据库
-const db = require('../db')
 module.exports= function (post) {
     post('/profile',  function (req, res, next) {
         // 获取单域单文件【若不止单个文件，则抛出异常】，avatar为文件域名称
@@ -194,26 +192,54 @@ module.exports= function (post) {
             }
         })
     })
-    /**
+}
+
+```
+### 与MySQL数据库交互
+`在DAO处理和数据库相关的操作`
+
+```
+// dao/userDao.js
+const db = require('../db')
+
+module.exports={
+    validateAccount(account,pwd) {
+        // queryAccount是您提供的sql语句的key值，他是一个函数，queryAccount 返回一个Promise实例
+        // 在您的sql语句中，有几个‘？’，您就应该提供几个参数
+       return db.queryAccount(account,pwd)
+            .then(data=>{
+                console.log(data)
+                return data.length > 0;
+        })
+        // catch error
+            .catch(err =>{
+                console.log(err)
+                return error
+            })
+    }
+}
+
+```
+
+
+```
+// 引入dao层
+const dao = require('../dao/userDao.js')
+module.exports= function (post) {
+     /**
      *  和后台数据库交互
      */
     post('/user',(req,res)=>{
         // use 'res.body.xxx'  to get the post request body params
         console.log(req.body.account)
-        // queryAccount是您提供的sql语句的key值，在您的sql语句中，有几个‘？’，您就应该提供几个参数
-        // 对数据库的操作应单独抽取到DAO层，此代码仅供示例参考
-        db.queryAccount(req.body.account,req.body.pwd)
         // handle result
-            .then(data=>{
-                console.log(data)
-                res.send(data)
+        dao.validateAccount(req.body.account,req.body.pwd)
+            .then(result=>{
+                res.send(result)
             })
-            // catch error
-            .catch(err =>{
-                console.log(err)
-                res.status(400).send({err:"Bad Request"})
+            .catch(err=>{
+                res.status(400).send({message:"正在维护中"})
             })
     })
 }
-
 ```

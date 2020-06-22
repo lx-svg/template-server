@@ -1,5 +1,6 @@
 const upload = require('../vendor/multer-config.js')
-const db = require('../db')
+// 引入dao层
+const dao = require('../dao/userDao.js')
 module.exports= function (post) {
     post('/profile',  function (req, res) {
         // 获取单域单文件，avatar为文件域名称
@@ -68,16 +69,13 @@ module.exports= function (post) {
     post('/user',(req,res)=>{
         // use 'res.body.xxx'  to get the post request body params
         console.log(req.body.account)
-        db.queryAccount(req.body.account,req.body.pwd)
         // handle result
-            .then(data=>{
-                console.log(data)
-                res.send(data)
+        dao.validateAccount(req.body.account,req.body.pwd)
+            .then(result=>{
+                res.send(result)
             })
-            // catch error
-            .catch(err =>{
-                console.log(err)
-                res.status(400).send({err:"Bad Request"})
+            .catch(err=>{
+                res.status(400).send({message:"正在维护中"})
             })
     })
 }

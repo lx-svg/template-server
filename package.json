@@ -1,6 +1,6 @@
 {
   "name": "template",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "服务器端快速模板",
   "main": "ajax-template.js",
   "scripts": {
